@@ -1,11 +1,13 @@
 import React from 'react';
 
 const SearchBar = (props) => {
-  const { handleSearchValChange, handleSearchSubmit, value } = props;
+  const { handleSearchValChange, handleSearchSubmit, symbol } = props;
   return (
     <div>
-      <input type="text" value={value} onChange={handleSearchValChange}></input>
-      <button type="submit" onSubmit={handleSearchSubmit} />
+      <form onSubmit={handleSearchSubmit} >
+        <input type="text" value={symbol} onChange={handleSearchValChange}></input>
+        <button type="submit" />
+      </form>
     </div>
   )
 }

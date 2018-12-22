@@ -24,12 +24,14 @@ class App extends React.Component {
         marketOpen: true,
       },
       search: {
-        value: '',
+        symbol: '',
       },
     };
     this.handleChartHover = this.handleChartHover.bind(this);
     this.handleChartLeave = this.handleChartLeave.bind(this);
     this.marketOpenCheck = this.marketOpenCheck.bind(this);
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+    this.handleSearchValChange = this.handleSearchValChange.bind(this);
   }
 
   // componentDidMount() {
@@ -100,11 +102,19 @@ class App extends React.Component {
 
   handleSearchValChange(event) {
     //this is where we will update state
+    const { value } = event.target;
+    const symbolUpdate = {search: {symbol: value}};
+    this.setState(symbolUpdate);
   }
 
-  handleSearchSubmit() {
-    //make call to the server here (with the search value, which represents the users desired symbol to search for)
-    //after make sure to set state to be an empty string, as to clear the search bar
+  handleSearchSubmit(event) {
+    event.preventDefault();
+    const { symbol } = this.state.search;
+    fetch(`/stock/${symbol}/price`)
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .then(() => this.setState({ search: {symbol: ''}}) )
+    .catch(err => console.log(err));
   }
 
   render() {
@@ -115,7 +125,7 @@ class App extends React.Component {
       marketOpen,
       hover,
     } = this.state.data;
-    const { value } = this.state.search;
+    const { symbol } = this.state.search;
 
     if (data.length) {
       return (
@@ -141,7 +151,7 @@ class App extends React.Component {
         <SearchBar 
           handleSearchValChange={this.handleSearchValChange}
           handleSearchSubmit={this.handleSearchSubmit}
-          value={value}
+          symbol={symbol}
         />
       </div>
     );

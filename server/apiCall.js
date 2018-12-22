@@ -3,9 +3,11 @@ const apiHost = 'https://api.iextrading.com/1.0';
 
 const apiCall = (symbol, res) => {
   console.log(symbol);
-  axios.get(`${apiHost}/stock/${symbol}/chart/1d`)
-    .then(response => response)
-    .then(data => {
+  axios.get(`${apiHost}/stock/${symbol}/chart/1d?chartInterval=5`)
+    .then(promise => promise)
+    .then(response => {
+      const { data } = response;
+      console.log(data);
       res.json(data);
     })
     .catch(err => {
