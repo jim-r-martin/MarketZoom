@@ -23,8 +23,6 @@ const GraphConstructor = (props) => {
         height={document.getElementById('stockValueChart').clientHeight * 6 / 10}
       >
         <YAxis type="number" domain={['dataMin', 'dataMax']} hide />
-        {/* <XAxis dataKey="minute" hide /> */}
-        {/* <XAxis dataKey="id" type="number" domain={[0, 78]} hide /> */}
         <Tooltip content={<CustomToolTip />} />
         <ReferenceLine y={openingPrice} stroke={refLineColor} strokeDasharray="1 8" />
         <Line
