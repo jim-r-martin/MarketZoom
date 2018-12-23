@@ -61,4 +61,4 @@ typings/
 .next
 
 # ignore the actual bundle file
-bundle.*
+client/dist/bundle.js

@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment-timezone';
 import Graph from './Graph';
 import SearchBar from './SearchBar';
+import timeCheck from './timeCheck';
 
 const timeUpdate = jsonData => (
   jsonData.map((stockObj, index) => ({
@@ -17,16 +18,13 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {
-        data: [],
-        companyName: undefined,
-        displayPrice: 0,
-        marketOpen: true,
-      },
-      search: {
-        symbol: '',
-      },
+      data: [],
+      companyName: '',
+      displayPrice: 0,
+      marketOpen: true,
+      symbol: '',
     };
+
     this.handleChartHover = this.handleChartHover.bind(this);
     this.handleChartLeave = this.handleChartLeave.bind(this);
     this.marketOpenCheck = this.marketOpenCheck.bind(this);
@@ -34,43 +32,23 @@ class App extends React.Component {
     this.handleSearchValChange = this.handleSearchValChange.bind(this);
   }
 
-  // componentDidMount() {
-  //   const id = Math.floor(Math.random() * 10) + 1;
-  //   fetch(`/chart/stocks/${id}`)
-  //     .then(res => res.json())
-  //     .then((jsonData) => {
-  //       const data = timeUpdate(jsonData);
-  //       const displayPrice = data[data.length - 1].price;
-  //       this.setState({ data, displayPrice });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  //   fetch(`/chart/companies/${id}`)
-  //     .then(res => res.json())
-  //     .then((jsonData) => {
-  //       const companyName = jsonData[0].name;
-  //       this.setState({ companyName });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  //   this.marketOpenCheck();
-  // }
+  componentDidMount() {
+    this.marketOpenCheck();
+  }
 
   handleChartHover(event) {
     if (event.activePayload) {
-      const { price } = event.activePayload[0].payload;
+      const hoverPrice = event.activePayload[0].payload.close;
       this.setState({
-        displayPrice: price,
+        displayPrice: hoverPrice,
         hover: true,
       });
     }
   }
 
   handleChartLeave() {
-    const { data } = this.state.data;
-    const currentMarketPrice = data[data.length - 1].price;
+    const { data } = this.state;
+    const currentMarketPrice = data[data.length - 1].close;
     this.setState({
       displayPrice: currentMarketPrice,
       hover: false,
@@ -78,54 +56,49 @@ class App extends React.Component {
   }
 
   marketOpenCheck() {
-    const currentTime = moment().tz('America/New_York');
-    const open = moment().tz('America/New_York')
-      .hour(9)
-      .minute(30)
-      .second(0)
-      .millisecond(0);
-    const close = moment().tz('America / New_York')
-      .hour(16)
-      .minute(0)
-      .second(0)
-      .millisecond(0);
-    const openTradingHours = (
-      (currentTime.hour() > open.hour()
-        || (currentTime.hour() === open.hour() && currentTime.minutes() >= open.minutes()))
-      && currentTime.hour() < close.hour()
-    );
-    const isWeekDay = (currentTime.day() !== 6) && (currentTime.day() !== 0);
+    const { openTradingHours, isWeekDay } = timeCheck();
     this.setState({
       marketOpen: (openTradingHours && isWeekDay),
     });
+    setTimeout(this.marketOpenCheck, 60000);
   }
 
   handleSearchValChange(event) {
-    //this is where we will update state
     const { value } = event.target;
-    const symbolUpdate = {search: {symbol: value}};
+    const symbolUpdate = {symbol: value};
     this.setState(symbolUpdate);
   }
 
   handleSearchSubmit(event) {
     event.preventDefault();
-    const { symbol } = this.state.search;
+    const { symbol } = this.state;
     fetch(`/stock/${symbol}/price`)
     .then(res => res.json())
-    .then(data => console.log(data))
-    .then(() => this.setState({ search: {symbol: ''}}) )
+    .then(data => data.filter((payload) => payload.close))
+    .then(data => this.setState({
+      data: data,
+      companyName: symbol,
+      displayPrice: data[0].close,
+      symbol: '',
+    }))
     .catch(err => console.log(err));
   }
 
   render() {
+    const {
+      handleChartHover,
+      handleChartLeave,
+      handleSearchSubmit,
+      handleSearchValChange,
+    } = this;
     const {
       data,
       companyName,
       displayPrice,
       marketOpen,
       hover,
-    } = this.state.data;
-    const { symbol } = this.state.search;
+      symbol,
+    } = this.state;
 
     if (data.length) {
       return (
@@ -133,6 +106,7 @@ class App extends React.Component {
           <SearchBar
             handleSearchValChange={handleSearchValChange}
             handleSearchSubmit={handleSearchSubmit}
+            symbol={symbol}
           />
           <Graph
             data={data}
@@ -140,8 +114,8 @@ class App extends React.Component {
             displayPrice={displayPrice}
             marketOpen={marketOpen}
             hover={hover}
-            handleChartHover={this.handleChartHover}
-            handleChartLeave={this.handleChartLeave}
+            handleChartHover={handleChartHover}
+            handleChartLeave={handleChartLeave}
           />
         </div>
       );
@@ -149,8 +123,8 @@ class App extends React.Component {
     return (
       <div>
         <SearchBar 
-          handleSearchValChange={this.handleSearchValChange}
-          handleSearchSubmit={this.handleSearchSubmit}
+          handleSearchValChange={handleSearchValChange}
+          handleSearchSubmit={handleSearchSubmit}
           symbol={symbol}
         />
       </div>

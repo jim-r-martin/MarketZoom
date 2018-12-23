@@ -9,8 +9,8 @@ const GraphConstructor = (props) => {
   const {
     data, handleChartHover, handleChartLeave, marketOpen,
   } = props;
-  const openingPrice = data[0].price;
-  const currentMarketPrice = data[data.length - 1].price;
+  const openingPrice = data[0].close;
+  const currentMarketPrice = data[data.length - 1].close;
   const priceLineColor = (currentMarketPrice >= openingPrice) ? '#30CD9A' : '#F1563A';
   const refLineColor = (marketOpen) ? 'black' : 'whitesmoke';
   return (
@@ -23,12 +23,13 @@ const GraphConstructor = (props) => {
         height={document.getElementById('stockValueChart').clientHeight * 6 / 10}
       >
         <YAxis type="number" domain={['dataMin', 'dataMax']} hide />
-        <XAxis dataKey="id" type="number" domain={[0, 78]} hide />
+        {/* <XAxis dataKey="minute" hide /> */}
+        {/* <XAxis dataKey="id" type="number" domain={[0, 78]} hide /> */}
         <Tooltip content={<CustomToolTip />} />
         <ReferenceLine y={openingPrice} stroke={refLineColor} strokeDasharray="1 8" />
         <Line
           type="monotone"
-          dataKey="price"
+          dataKey="close"
           data={data}
           strokeWidth={3}
           stroke={priceLineColor}

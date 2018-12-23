@@ -7,7 +7,6 @@ const apiCall = (symbol, res) => {
     .then(promise => promise)
     .then(response => {
       const { data } = response;
-      console.log(data);
       res.json(data);
     })
     .catch(err => {
