@@ -1,4 +1,3 @@
-// const dataProcessing = require('../components/dataProcessing');
 import { nullRemoval, parsedTime} from '../src/components/dataProcessing';
 import data from './mock/mockData.js';
 
