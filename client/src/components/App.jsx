@@ -74,7 +74,6 @@ class App extends React.Component {
     const { symbol } = this.state;
     fetch(`/stock/${symbol}/price`)
     .then(res => res.json())
-    .then(data => data.filter((payload) => payload.close))
     .then(data => this.setState({
       data: data,
       companyName: symbol,

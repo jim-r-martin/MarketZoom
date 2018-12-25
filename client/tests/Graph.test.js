@@ -1,6 +1,6 @@
 import React from 'react';
-import { mount, shallow } from './enzyme';
-import Graph from '../components/Graph';
+import { shallow } from './enzyme';
+import Graph from '../src/components/Graph';
 
 const data = [{
   price: 5,
