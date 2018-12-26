@@ -76,7 +76,7 @@ class App extends React.Component {
     .then(res => res.json())
     .then(data => this.setState({
       data: data,
-      companyName: symbol,
+      companyName: symbol.toUpperCase(),
       displayPrice: data[0].close,
       symbol: '',
     }))

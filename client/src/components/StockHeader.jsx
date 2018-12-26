@@ -7,7 +7,7 @@ import closedStyles from '../styles/marketClose/StockHeader.css';
 const StockHeader = (props) => {
   const {
     data,
-    symbol,
+    companyName,
     displayPrice,
     marketOpen,
     hover,
@@ -16,7 +16,7 @@ const StockHeader = (props) => {
   if (data.length) {
     return (
       <div className={`${styles.priceDisplay} ${styles.stockHeader}`}>
-        <div className={styles.companyName}>{symbol}</div>
+        <div className={styles.companyName}>{companyName}</div>
         <div className={styles.price} id="price">
           <AnimatedNumber
             duration={750}
