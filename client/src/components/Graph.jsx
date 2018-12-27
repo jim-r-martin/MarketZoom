@@ -1,15 +1,13 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
-import openStyles from '../styles/marketOpen/GraphOpen.css';
-import closeStyles from '../styles/marketClose/GraphClose.css';
 import GraphConstructor from './GraphConstructor';
 import StockHeader from './StockHeader';
+import styles from '../styles/Graph.css';
 
 const Graph = (props) => {
   const {
     data, companyName, displayPrice, marketOpen, handleChartHover, hover, handleChartLeave,
   } = props;
-  const styles = (marketOpen) ? openStyles : closeStyles;
   return (
     <div className={styles.wrapper}>
       <div className={styles.stockValueGraph}>
