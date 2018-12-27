@@ -1,12 +1,13 @@
 import React from 'react';
+import styles from '../styles/SearchBar.css';
 
 const SearchBar = (props) => {
   const { handleSearchValChange, handleSearchSubmit, symbol } = props;
   return (
-    <div>
-      <form onSubmit={handleSearchSubmit} >
-        <input type="text" placeholder="Stock symbol, e.g. aapl" value={symbol} onChange={handleSearchValChange}></input>
-        <button type="submit" />
+    <div className={styles.root}>
+      <form className={styles.symbolForm} onSubmit={handleSearchSubmit} >
+        <input id={styles.symbolInput} type="text" placeholder="Stock symbol, e.g. aapl" value={symbol} onChange={handleSearchValChange}></input>
+        <button type="submit">Search</button>
       </form>
     </div>
   )
