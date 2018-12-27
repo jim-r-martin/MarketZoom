@@ -3,6 +3,7 @@ import moment from 'moment-timezone';
 import Graph from './Graph';
 import SearchBar from './SearchBar';
 import timeCheck from './timeCheck';
+import closedStyles from '../styles/marketClose/App.css';
 
 const timeUpdate = jsonData => (
   jsonData.map((stockObj, index) => ({
@@ -101,7 +102,7 @@ class App extends React.Component {
 
     if (data.length) {
       return (
-        <div>
+        <div className={closedStyles.mainWrapper}>
           <SearchBar
             handleSearchValChange={handleSearchValChange}
             handleSearchSubmit={handleSearchSubmit}

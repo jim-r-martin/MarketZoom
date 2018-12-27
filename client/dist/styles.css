@@ -3,14 +3,4 @@ body {
   padding: 0%;
   height: 100vh;
   width: 100vw;
-  display: grid;
-  grid-template-columns: repeat(20, 1fr);
-  grid-template-rows: repeat(20, 1fr);
 }
-
-#stockValueChart {
-  grid-column: 3 / span 10;
-  grid-row: 3 / span 11;
-  display: block;
-}
-

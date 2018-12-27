@@ -9,7 +9,7 @@ const Graph = (props) => {
   const {
     data, companyName, displayPrice, marketOpen, handleChartHover, hover, handleChartLeave,
   } = props;
-  const styles = (marketOpen ? openStyles : closeStyles);
+  const styles = (marketOpen) ? openStyles : closeStyles;
   return (
     <div className={styles.wrapper}>
       <div className={styles.stockValueGraph}>
