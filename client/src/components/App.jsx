@@ -6,16 +6,6 @@ import timeCheck from './timeCheck';
 import closedStyles from '../styles/marketClose/App.css';
 import openStyles from '../styles/marketOpen/App.css';
 
-const timeUpdate = jsonData => (
-  jsonData.map((stockObj, index) => ({
-    price: stockObj.price,
-    time: moment(stockObj.dateTime).add(8, 'hour').format('h:mm A').concat(' ET'),
-    id: index,
-    marketOpen: false,
-    hover: false,
-  }))
-);
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -79,7 +69,7 @@ class App extends React.Component {
     .then(data => this.setState({
       data: data,
       companyName: symbol.toUpperCase(),
-      displayPrice: data[0].close,
+      displayPrice: data[data.length - 1].close,
       symbol: '',
     }))
     .catch(err => console.log(err));
