@@ -1,15 +1,13 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
-import openStyles from '../styles/marketOpen/GraphOpen.css';
-import closeStyles from '../styles/marketClose/GraphClose.css';
 import GraphConstructor from './GraphConstructor';
 import StockHeader from './StockHeader';
+import styles from '../styles/Graph.css';
 
 const Graph = (props) => {
   const {
-    data, symbol, displayPrice, marketOpen, handleChartHover, hover, handleChartLeave,
+    data, companyName, displayPrice, marketOpen, handleChartHover, hover, handleChartLeave,
   } = props;
-  const styles = (marketOpen ? openStyles : closeStyles);
   return (
     <div className={styles.wrapper}>
       <div className={styles.stockValueGraph}>
@@ -22,7 +20,7 @@ const Graph = (props) => {
       </div>
       <StockHeader
         data={data}
-        symbol={symbol}
+        companyName={companyName}
         displayPrice={displayPrice}
         marketOpen={marketOpen}
         hover={hover}

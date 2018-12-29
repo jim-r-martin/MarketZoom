@@ -1,22 +1,20 @@
 import React from 'react';
 import AnimatedNumber from 'react-animated-number';
 import PriceShift from './PriceShift';
-import openStyles from '../styles/marketOpen/StockHeader.css';
-import closedStyles from '../styles/marketClose/StockHeader.css';
+import styles from '../styles/StockHeader.css';
 
 const StockHeader = (props) => {
   const {
     data,
-    symbol,
+    companyName,
     displayPrice,
     marketOpen,
     hover,
   } = props;
-  const styles = (marketOpen ? openStyles : closedStyles);
   if (data.length) {
     return (
       <div className={`${styles.priceDisplay} ${styles.stockHeader}`}>
-        <div className={styles.companyName}>{symbol}</div>
+        <div className={styles.companyName}>{companyName}</div>
         <div className={styles.price} id="price">
           <AnimatedNumber
             duration={750}

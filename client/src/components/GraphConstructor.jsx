@@ -22,8 +22,6 @@ const GraphConstructor = (props) => {
         onMouseMove={e => handleChartHover(e)}
         onMouseLeave={() => handleChartLeave()}
         className="chart"
-        width={document.getElementById('stockValueChart').clientWidth}
-        height={document.getElementById('stockValueChart').clientHeight * 6 / 10}
       >
         <YAxis type="number" domain={['dataMin', 'dataMax']} hide />
         <XAxis type="number" dataKey="time" domain={[570, 960]} hide />

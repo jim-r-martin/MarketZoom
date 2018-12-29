@@ -3,7 +3,6 @@
 .priceDisplay {
   grid-row: 1 / span 2;
   grid-column: 1 / span 4;
-  color: black;
 }
 
 .stockHeader {

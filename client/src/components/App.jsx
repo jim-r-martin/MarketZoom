@@ -3,6 +3,8 @@ import moment from 'moment-timezone';
 import Graph from './Graph';
 import SearchBar from './SearchBar';
 import timeCheck from './timeCheck';
+import closedStyles from '../styles/marketClose/App.css';
+import openStyles from '../styles/marketOpen/App.css';
 
 const timeUpdate = jsonData => (
   jsonData.map((stockObj, index) => ({
@@ -76,7 +78,7 @@ class App extends React.Component {
     .then(res => res.json())
     .then(data => this.setState({
       data: data,
-      companyName: symbol,
+      companyName: symbol.toUpperCase(),
       displayPrice: data[0].close,
       symbol: '',
     }))
@@ -98,10 +100,11 @@ class App extends React.Component {
       hover,
       symbol,
     } = this.state;
+    const styles = (marketOpen) ? openStyles : closedStyles;
 
     if (data.length) {
       return (
-        <div>
+        <div className={styles.mainWrapper}>
           <SearchBar
             handleSearchValChange={handleSearchValChange}
             handleSearchSubmit={handleSearchSubmit}
@@ -120,7 +123,7 @@ class App extends React.Component {
       );
     }
     return (
-      <div>
+      <div className={styles.mainWrapper}>
         <SearchBar 
           handleSearchValChange={handleSearchValChange}
           handleSearchSubmit={handleSearchSubmit}
