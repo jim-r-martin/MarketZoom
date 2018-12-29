@@ -11,6 +11,11 @@ const StockHeader = (props) => {
     marketOpen,
     hover,
   } = props;
+  const priceFormatOptions = {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+  };
   if (data.length) {
     return (
       <div className={`${styles.priceDisplay} ${styles.stockHeader}`}>
@@ -28,7 +33,9 @@ const StockHeader = (props) => {
               perc === 100 ? {} : { opacity: 1 }
             )}
             value={displayPrice}
-            formatValue={n => '$'.concat(n.toString())}
+            formatValue={n => (
+              Intl.NumberFormat('en-US', priceFormatOptions).format(n)
+            )}
           />
         </div>
         <div className={styles.priceShift}>

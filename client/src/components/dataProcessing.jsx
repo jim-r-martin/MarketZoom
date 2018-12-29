@@ -14,19 +14,4 @@ const parsedTime = (data) => {
   });
 };
 
-const centsParse = (price) => {
-  let priceString = price.toString();
-  if (priceString.includes('.')) {
-    if (priceString.split('.').length > 1) {
-      const cents = priceString.split('.')[1].slice(0, 2);
-      const dollars = priceString.split('.')[0];
-      priceString = dollars.concat('.',cents);
-    } else {
-      const cents = priceString.split('.')[0].slice(0,2);
-      priceString = '.'.concat(cents);
-    }
-  }
-  return Number(priceString);
-};
-
-export { nullRemoval, parsedTime, centsParse };
+export { nullRemoval, parsedTime };

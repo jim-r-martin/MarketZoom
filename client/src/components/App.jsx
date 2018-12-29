@@ -29,21 +29,17 @@ class App extends React.Component {
 
   handleChartHover(event) {
     if (event.activePayload) {
-      const hoverPrice = event.activePayload[0].payload.close;
-      this.setState({
-        displayPrice: hoverPrice,
-        hover: true,
-      });
+      const displayPrice = event.activePayload[0].payload.close;
+      const hover = true;
+      this.setState({ displayPrice, hover });
     }
   }
 
   handleChartLeave() {
     const { data } = this.state;
-    const currentMarketPrice = data[data.length - 1].close;
-    this.setState({
-      displayPrice: currentMarketPrice,
-      hover: false,
-    });
+    const displayPrice = data[data.length - 1].close;
+    const hover = false;
+    this.setState({ hover, displayPrice });
   }
 
   marketOpenCheck() {
