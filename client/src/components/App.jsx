@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment-timezone';
 import Graph from './Graph';
 import SearchBar from './SearchBar';
 import timeCheck from './timeCheck';
