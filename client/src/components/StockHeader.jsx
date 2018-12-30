@@ -8,7 +8,6 @@ const StockHeader = (props) => {
     data,
     companyName,
     displayPrice,
-    marketOpen,
     hover,
   } = props;
   const priceFormatOptions = {

@@ -3,18 +3,14 @@ import {
   LineChart, Line, ResponsiveContainer, YAxis, XAxis, ReferenceLine, Tooltip,
 } from 'recharts';
 import CustomToolTip from './CustomToolTip';
-import { nullRemoval, parsedTime, priceFormatting } from './dataProcessing';
 import styles from '../styles/GraphConstructor.css';
 
 const GraphConstructor = (props) => {
   let {
     data, handleChartHover, handleChartLeave, marketOpen,
   } = props;
-  const nonNullData = nullRemoval(data);
-  const updatedTimedata = parsedTime(nonNullData);
-  const displayData = priceFormatting(updatedTimedata);
-  const openingPrice = displayData[0].close;
-  const currentMarketPrice = displayData[displayData.length - 1].close;
+  const openingPrice = data[0].close;
+  const currentMarketPrice = data[data.length - 1].close;
   const priceLineColor = (currentMarketPrice >= openingPrice) ? '#30CD9A' : '#F1563A';
   const refLineColor = (marketOpen) ? 'black' : 'whitesmoke';
   return (
@@ -31,7 +27,7 @@ const GraphConstructor = (props) => {
         <Line
           type="monotone"
           dataKey="close"
-          data={displayData}
+          data={data}
           strokeWidth={3}
           stroke={priceLineColor}
           dot={false}

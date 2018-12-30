@@ -6,23 +6,29 @@ const PriceShift = (props) => {
     displayPrice,
     hover,
   } = props;
-  let priceShift = Math.round(100 * (displayPrice - openingPrice)) / 100;
-  let percentShift = Math.round((priceShift / openingPrice * 100) * 100) / 100;
-  const priceShiftExtInfo = (hover) ? '' : 'Today';
-  if (priceShift >= 0) {
-    return (
-      <span>
-        {'+$'.concat(priceShift, ' +', percentShift, '% ', priceShiftExtInfo)}
-      </span>
-    );
-  }
-  priceShift = Math.abs(priceShift);
-  percentShift = Math.abs(percentShift);
+  console.log(`opening: ${openingPrice}, display: ${displayPrice}`);
+  const priceShift = displayPrice - openingPrice;
+  const percentShift = priceShift / openingPrice;
+
+  const priceShiftDispOpts = {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+  };
+  const percentShiftDispOpts = {
+    style: 'percent',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  };
+  const priceShiftString = Intl.NumberFormat('en-US', priceShiftDispOpts).format(priceShift);
+  const percentShiftString = Intl.NumberFormat('en-US', percentShiftDispOpts).format(percentShift);
+  const priceShiftExtInfo = (hover) ? '' : 'Close';
+
   return (
     <span>
-      {'-$'.concat(priceShift, ' -(', percentShift, '%) ', priceShiftExtInfo)}
+      {`${priceShiftString} ${percentShiftString} ${priceShiftExtInfo}`}
     </span>
-  );
+  )
 };
 
 export default PriceShift;

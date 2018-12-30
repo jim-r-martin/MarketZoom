@@ -4,6 +4,7 @@ import SearchBar from './SearchBar';
 import timeCheck from './timeCheck';
 import closedStyles from '../styles/marketClose/App.css';
 import openStyles from '../styles/marketOpen/App.css';
+import { nullRemoval, parsedTime } from './dataProcessing';
 
 class App extends React.Component {
   constructor(props) {
@@ -61,6 +62,8 @@ class App extends React.Component {
     const { symbol } = this.state;
     fetch(`/stock/${symbol}/price`)
     .then(res => res.json())
+    .then(data => nullRemoval(data))
+    .then(data => parsedTime(data))
     .then(data => this.setState({
       data: data,
       companyName: symbol.toUpperCase(),
