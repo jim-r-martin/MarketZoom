@@ -6,7 +6,6 @@ const PriceShift = (props) => {
     displayPrice,
     hover,
   } = props;
-  console.log(`opening: ${openingPrice}, display: ${displayPrice}`);
   const priceShift = displayPrice - openingPrice;
   const percentShift = priceShift / openingPrice;
 
