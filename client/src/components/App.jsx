@@ -70,7 +70,9 @@ class App extends React.Component {
       displayPrice: data[data.length - 1].close,
       symbol: '',
     }))
-    .catch(err => console.log(err));
+    .catch(err => (
+      alert('Oops! Improper ticker symbol submission. Please take a look at https://www.nasdaq.com/screening/company-list.aspx for a list of all ticker symbols.')
+    ));
   }
 
   render() {
