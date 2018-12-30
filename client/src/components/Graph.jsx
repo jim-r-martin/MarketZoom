@@ -22,7 +22,6 @@ const Graph = (props) => {
         data={data}
         companyName={companyName}
         displayPrice={displayPrice}
-        marketOpen={marketOpen}
         hover={hover}
       />
     </div>

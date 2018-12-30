@@ -1,20 +1,10 @@
 import React from 'react';
-import moment from 'moment-timezone';
 import Graph from './Graph';
 import SearchBar from './SearchBar';
 import timeCheck from './timeCheck';
 import closedStyles from '../styles/marketClose/App.css';
 import openStyles from '../styles/marketOpen/App.css';
-
-const timeUpdate = jsonData => (
-  jsonData.map((stockObj, index) => ({
-    price: stockObj.price,
-    time: moment(stockObj.dateTime).add(8, 'hour').format('h:mm A').concat(' ET'),
-    id: index,
-    marketOpen: false,
-    hover: false,
-  }))
-);
+import { nullRemoval, parsedTime } from './dataProcessing';
 
 class App extends React.Component {
   constructor(props) {
@@ -40,21 +30,17 @@ class App extends React.Component {
 
   handleChartHover(event) {
     if (event.activePayload) {
-      const hoverPrice = event.activePayload[0].payload.close;
-      this.setState({
-        displayPrice: hoverPrice,
-        hover: true,
-      });
+      const displayPrice = event.activePayload[0].payload.close;
+      const hover = true;
+      this.setState({ displayPrice, hover });
     }
   }
 
   handleChartLeave() {
     const { data } = this.state;
-    const currentMarketPrice = data[data.length - 1].close;
-    this.setState({
-      displayPrice: currentMarketPrice,
-      hover: false,
-    });
+    const displayPrice = data[data.length - 1].close;
+    const hover = false;
+    this.setState({ hover, displayPrice });
   }
 
   marketOpenCheck() {
@@ -76,13 +62,17 @@ class App extends React.Component {
     const { symbol } = this.state;
     fetch(`/stock/${symbol}/price`)
     .then(res => res.json())
+    .then(data => nullRemoval(data))
+    .then(data => parsedTime(data))
     .then(data => this.setState({
       data: data,
       companyName: symbol.toUpperCase(),
-      displayPrice: data[0].close,
+      displayPrice: data[data.length - 1].close,
       symbol: '',
     }))
-    .catch(err => console.log(err));
+    .catch(err => (
+      alert('Oops! Improper ticker symbol submission. Please take a look at https://www.nasdaq.com/screening/company-list.aspx for a list of all ticker symbols.')
+    ));
   }
 
   render() {

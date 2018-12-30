@@ -1,4 +1,4 @@
-import { nullRemoval, parsedTime} from '../src/components/dataProcessing';
+import { nullRemoval, parsedTime, priceFormatting } from '../src/components/dataProcessing';
 import data from './mock/mockData.js';
 
 test('removes all null prices from array and all prices are numbers', () => {
