@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
-const port = 3003;
+const port = process.env.PORT || 3003;
 
 app.listen(port, (err) => {
   if (err) {
