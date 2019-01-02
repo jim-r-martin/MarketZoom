@@ -1,0 +1,15 @@
+{
+ "manifest_version": 2,
+ "name": "Stock Chart",
+ "description": "A search tool for any publicly traded companies stock price throughout the day",
+ "version": "1",
+ "author": "Jim Martin",
+"browser_action": {
+   "default_title": "Stay informed on the market"
+ },
+"chrome_url_overrides" : {
+  "newtab": "index.html"
+},
+ "permissions": ["activeTab"],
+ "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}

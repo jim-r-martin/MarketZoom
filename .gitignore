@@ -63,5 +63,5 @@ typings/
 # ignore the actual bundle file
 client/dist/bundle.js
 
-# ignore DS_Store
-*.DS_Store
+# ignore ds store
+.DS_Store
