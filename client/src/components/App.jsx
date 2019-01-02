@@ -17,6 +17,8 @@ class App extends React.Component {
       symbol: '',
     };
 
+    this.url = 'https://stock-chart-chrome-ext.herokuapp.com';
+
     this.handleChartHover = this.handleChartHover.bind(this);
     this.handleChartLeave = this.handleChartLeave.bind(this);
     this.marketOpenCheck = this.marketOpenCheck.bind(this);
@@ -59,8 +61,9 @@ class App extends React.Component {
 
   handleSearchSubmit(event) {
     event.preventDefault();
+    const { url } = this;
     const { symbol } = this.state;
-    fetch(`/stock/${symbol}/price`)
+    fetch(`${url}/stock/${symbol}/price`)
     .then(res => res.json())
     .then(data => nullRemoval(data))
     .then(data => parsedTime(data))
