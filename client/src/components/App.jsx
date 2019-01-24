@@ -1,5 +1,6 @@
 import React from 'react';
 import Graph from './Graph';
+import Header from './Header';
 import SearchBar from './SearchBar';
 import timeCheck from './timeCheck';
 import closedStyles from '../styles/marketClose/App.css';
@@ -98,7 +99,7 @@ class App extends React.Component {
     if (data.length) {
       return (
         <div className={styles.mainWrapper}>
-          <SearchBar
+          <Header
             handleSearchValChange={handleSearchValChange}
             handleSearchSubmit={handleSearchSubmit}
             symbol={symbol}
@@ -117,7 +118,7 @@ class App extends React.Component {
     }
     return (
       <div className={styles.mainWrapper}>
-        <SearchBar 
+        <Header
           handleSearchValChange={handleSearchValChange}
           handleSearchSubmit={handleSearchSubmit}
           symbol={symbol}

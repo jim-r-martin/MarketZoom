@@ -1,0 +1,12 @@
+.root {
+  grid-column: 1 / span 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  color: #6c757d;
+  margin: 0 1em;
+  align-content: left;
+}
