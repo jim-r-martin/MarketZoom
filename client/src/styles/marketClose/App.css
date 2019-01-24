@@ -4,6 +4,6 @@
   background-color: #1B1B1D;
   color: whitesmoke;
   display: grid;
-  grid-template-rows: 15% 65% 25%;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 20% 75% 5%;
+  grid-template-columns: 1fr 4fr 1fr;
 };

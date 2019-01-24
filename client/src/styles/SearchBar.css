@@ -1,24 +1,3 @@
-.root {
-  grid-column: 3 / span 1;
-
-}
-
-.symbolForm {
-  margin-top: 10%;
-}
-
-#symbolInput {
-  border: 0;
-  border-bottom: 2px solid whitesmoke;
-  background: transparent;
-  color: whitesmoke;
-  font-size: 1em;
-  width: 70%;
-}
-
-button {
-  display: block;
-  width: 25%;
-  height: 20px;
-  margin: 10px 55px;
+.inputFormStyling {
+  margin: 0 0.25em;
 }
